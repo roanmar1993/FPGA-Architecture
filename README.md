@@ -57,6 +57,8 @@ Where:
 ## 📤 Output Format
 
 Each line in the output file represents a single LUT:
+
+
 <Output ID> <1st Input ID> <2nd Output ID> <Kth Input ID>
 
 
