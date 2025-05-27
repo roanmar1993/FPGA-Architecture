@@ -9,6 +9,7 @@ The objective is to partition the network into **K-feasible cones**, minimizing 
 ## 📘 Problem Overview
 
 A Boolean network is represented as a **Directed Acyclic Graph (DAG)**. Nodes represent logic gates or primary inputs/outputs. The goal is to map this network into a collection of K-LUTs such that:
+
 - Each LUT covers a subgraph rooted at some gate
 - The number of inputs to the LUT is ≤ K
 - The total number of LUTs is minimized
@@ -39,18 +40,23 @@ A Boolean network is represented as a **Directed Acyclic Graph (DAG)**. Nodes re
 
 An input file describes a Boolean network:
 
+```
 <NetworkName> <N> <I> <O>
 <Primary Input ID 1>
+...
 <Primary Input ID I>
 <Primary Output ID 1>
+...
 <Primary Output ID O>
-<Gate ID> <Input ID 1> <Input ID 2>
-
+<Gate ID> <Input ID 1> <Input ID 2> ...
+...
+```
 
 Where:
-- `N`: number of gates
-- `I`: number of primary inputs
-- `O`: number of primary outputs
+
+- `N`: number of gates  
+- `I`: number of primary inputs  
+- `O`: number of primary outputs  
 
 ---
 
@@ -58,9 +64,9 @@ Where:
 
 Each line in the output file represents a single LUT:
 
-
-<Output ID>  <1st Input ID>  <2nd Output ID>  <Kth Input ID>
-
+```
+<Output ID> <Input1 ID> <Input2 ID> ... <InputK ID>
+```
 
 ---
 
@@ -68,45 +74,62 @@ Each line in the output file represents a single LUT:
 
 To compile the project:
 
-
+```bash
 make
+```
+
 To clean the compiled binaries:
 
+```bash
 make clean
+```
 
-🚀 Usage
+---
 
+## 🚀 Usage
+
+```bash
 ./mapper <input_file> <output_file> <K>
-Example:
+```
 
+### Example:
+
+```bash
 ./mapper testcase1.txt result1.txt 4
-This maps the circuit in testcase1.txt using 4-input LUTs and writes the result to result1.txt.
+```
 
-📊 Implementation Summary
+This maps the circuit in `testcase1.txt` using 4-input LUTs and writes the result to `result1.txt`.
+
+---
+
+## 📊 Implementation Summary
+
 Key components of the algorithm include:
 
-Graph Construction: Parses the file into a DAG with primary inputs/outputs and gate interconnections.
+- **Graph Construction**: Parses the file into a DAG with primary inputs/outputs and gate interconnections.
+- **Level Assignment**: Performs reverse BFS to determine processing order.
+- **LUT Generation**: Expands inputs level-wise while tracking merged nodes and avoiding overflow.
+- **Optimization**: Reprocesses prematurely merged nodes as needed.
+- **File Output**: LUTs are saved in the required submission format.
 
-Level Assignment: Performs reverse BFS to determine processing order.
+For full documentation of each step and design decisions, see the included [`109006255_report.pdf`](./109006255_report.pdf).
 
-LUT Generation: Expands inputs level-wise while tracking merged nodes and avoiding overflow.
+---
 
-Optimization: Reprocesses prematurely merged nodes as needed.
+## 🧪 Example Use Case
 
-File Output: LUTs are saved in the required submission format.
-
-For full documentation of each step and design decisions, see the included 109006255_report.pdf.
-
-🧪 Example Use Case
-
+```bash
 ./mapper network.in mapped.out 5
-network.in: input network file
+```
 
-mapped.out: output mapping result
+- `network.in`: input network file
+- `mapped.out`: output mapping result
+- `5`: maps using 5-input LUTs
 
-5: maps using 5-input LUTs
+---
 
-👤 Author
-Rogelio Martínez (109006255)
-National Tsing Hua University
+## 👤 Author
+
+**Rogelio Martínez (109006255)**  
+National Tsing Hua University  
 Course: FPGA Architecture & CAD (CS516000)
