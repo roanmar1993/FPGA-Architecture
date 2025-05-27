@@ -41,17 +41,11 @@ An input file describes a Boolean network:
 
 <NetworkName> <N> <I> <O>
 <Primary Input ID 1>
-...
 <Primary Input ID I>
 <Primary Output ID 1>
-...
 <Primary Output ID O>
-<Gate ID> <Input ID 1> <Input ID 2> ...
-...
+<Gate ID> <Input ID 1> <Input ID 2>
 
-yaml
-Copy
-Edit
 
 Where:
 - `N`: number of gates
